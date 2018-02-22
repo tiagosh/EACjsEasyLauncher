@@ -60,6 +60,10 @@ fi
 
 cd $DIRNAME
 
+if ! which docker &>/dev/null; then
+    echo Please install docker first
+    exit 1
+fi
 
 clean_docker
 create_image
