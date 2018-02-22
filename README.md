@@ -25,6 +25,12 @@ By default the script will ask parity to connect to the "kovan" network.
 
 First launch will take some time until parity is fully synchronized.
 
-In the eac.js console simply type ".start" to start looking for transactions to execute and that's all.
+Once you see the eac.js console type ".start" to start looking for transactions to execute and that's all.
+
+To check parity synchronization status, simply run the following command in another terminal:
+
+```
+docker logs $(docker ps -q -a --filter ancestor=eac| head -1)
+```
 
 Enjoy!
