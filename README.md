@@ -33,4 +33,10 @@ To check parity synchronization status, simply run the following command in anot
 docker logs $(docker ps -q -a --filter ancestor=eac| head -1)
 ```
 
+To see the eac.js live logs you can type the following command:
+
+```
+docker exec $(docker ps -q -a --filter ancestor=eac| head -1) tail -f /home/eac/.eac.log
+```
+
 Enjoy!
