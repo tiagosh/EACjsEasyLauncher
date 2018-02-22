@@ -1,5 +1,6 @@
 #!/bin/bash
 CHAIN=kovan
+DIRNAME=$(dirname $0)
 
 clean_docker() {
     # stop and remove old and running containers
@@ -52,6 +53,12 @@ start_parity_and_eacjs() {
     sleep 5
     docker exec -it $CONTAINER bash -c 'source /home/eac/.nvm/nvm.sh; cd; eac.js -c'
 }
+
+if [ $DIRNAME =  "." ]; then
+    DIRNAME=$PWD
+fi
+
+cd $DIRNAME
 
 
 clean_docker
