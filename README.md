@@ -21,7 +21,7 @@ This procedure will take some time.
 After everything is correctly installed, you will be asked to type a password 3 times to create a new account.
 Your password will be saved in plain text in the "password" file, and the ethereum address will be in the "account" file.
 Parity configuration files will be placed under the parity-config directory.
-By default the script will ask parity to connect to the "ropsten" network and request some eth automatically from a faucet to your new address.
+By default the script will ask parity to connect to the "kovan" network.
 
 First launch will take some time until parity is fully synchronized.
 

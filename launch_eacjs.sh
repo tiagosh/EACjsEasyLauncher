@@ -1,4 +1,5 @@
 #!/bin/bash
+CHAIN=kovan
 
 clean_docker() {
     # stop and remove old and running containers
@@ -35,21 +36,19 @@ create_account() {
     # create new account if not done yet
     if [ ! -f password -o ! -f account ]; then
         mkdir parity-config
-        docker run -v $PWD/parity-config:/home/eac/.local -it eac parity --chain ropsten account new | tee account2
+        docker run -v $PWD/parity-config:/home/eac/.local -it eac parity --chain $CHAIN account new | tee account2
         ACCOUNT=$(tail -n 1 account2 | sed $'s@\r@@g')
         rm account2
         read -s -p "Please enter the same password again: " PASS
         echo $PASS > password
         echo $ACCOUNT > account
-        echo Requesting some ropsten eth from the faucet ...
-        curl -X POST  -H "Content-Type: application/json" -d "{\"toWhom\":\"$ACCOUNT\"}" https://ropsten.faucet.b9lab.com/tap
     fi
 }
 
 start_parity_and_eacjs() {
     echo Starting parity... EAC will be functional once parity is fully synchronyzed
     ACCOUNT=$(cat account)
-    CONTAINER=$(docker run -d -v $PWD/parity-config:/home/eac/.local -v $PWD/password:/home/eac/password -it eac parity --geth --chain ropsten --unlock $ACCOUNT --password /home/eac/password)
+    CONTAINER=$(docker run -d -v $PWD/parity-config:/home/eac/.local -v $PWD/password:/home/eac/password -it eac parity --geth --chain $CHAIN --unlock $ACCOUNT --password /home/eac/password)
     sleep 5
     docker exec -it $CONTAINER bash -c 'source /home/eac/.nvm/nvm.sh; cd; eac.js -c'
 }
